@@ -144,7 +144,9 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                     return false;
-                }).withOnAccountHeaderProfileImageListener(new AccountHeader.OnAccountHeaderProfileImageListener() {
+                })
+                /*
+                .withOnAccountHeaderProfileImageListener(new AccountHeader.OnAccountHeaderProfileImageListener() {
                     @Override
                     public boolean onProfileImageClick(View view, IProfile profile, boolean current) {
                         if(globalData.getPrimaryUser().getUserId()==0){
@@ -172,7 +174,9 @@ public class MainActivity extends AppCompatActivity {
                             return true;
                         }
                     }
-                }).withOnAccountHeaderSelectionViewClickListener((view, profile) -> false)
+                })
+                */
+                .withOnAccountHeaderSelectionViewClickListener((view, profile) -> false)
                 .build();
 
     }

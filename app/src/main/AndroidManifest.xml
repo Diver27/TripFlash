@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name="com.example.l.TripFlash.GlobalData"
+        android:name=".GlobalData"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,16 +19,17 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="com.example.l.TripFlash.MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.l.TripFlash.view.UserDetailActivity" />
-        <activity android:name="com.example.l.TripFlash.view.LoginActivity" />
-        <activity android:name="com.example.l.TripFlash.view.RegistrationActivity" />
+        <activity android:name=".view.UserDetailActivity" />
+        <activity android:name=".view.LoginActivity" />
+        <activity android:name=".view.RegistrationActivity" />
+        <activity android:name=".view.RoutineViewActivity"></activity>
     </application>
 
 </manifest>
