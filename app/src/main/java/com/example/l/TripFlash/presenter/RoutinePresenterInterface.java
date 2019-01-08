@@ -2,10 +2,12 @@ package com.example.l.TripFlash.presenter;
 
 import android.content.Context;
 
-import java.util.Map;
+import com.example.l.TripFlash.model.AttractionModel;
+
+import java.util.List;
 
 public interface RoutinePresenterInterface {
     void LoadRoutineList(Context context);
-    void addRoutine(Context context,Map<String,Object> map);
-    void deleteRoutine(Context context,String location);
+    void addDestSpot(List<AttractionModel.AttractionSpot> selectedAttractionList);
+    void deleteDestSpot(int id);
 }

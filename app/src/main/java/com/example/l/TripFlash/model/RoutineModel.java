@@ -1,28 +1,33 @@
 package com.example.l.TripFlash.model;
 
-public class RoutineModel implements RoutineInterface{
-    public RoutineModel(){}
+import java.util.ArrayList;
+import java.util.List;
 
-    public class DestSpot{
-        private String name;
-        private String location;
+public class RoutineModel {
+    private List<DestSpot> DestList;
+    public RoutineModel(){
+        DestList=DestListInitializer();
+    }
 
-        public DestSpot(){}
+    private List<DestSpot> DestListInitializer(){
+        List<DestSpot> list=new ArrayList<>();
+        return list;
+    }
 
-        public String getName() {
-            return name;
-        }
+    public void getDestList(LoadDataCallBack callBack){
+        callBack.onSuccess(DestList);
+    }
 
-        public void setName(String name) {
-            this.name = name;
-        }
+    public void addDest(DestSpot destSpot){
+        DestList.add(destSpot);
+    }
 
-        public String getLocation() {
-            return location;
-        }
+    public void deleteDest(int id){
+        //TODO
+    }
 
-        public void setLocation(String location) {
-            this.location = location;
-        }
+    public interface LoadDataCallBack{
+        void onSuccess(List<DestSpot> DestList);
+        void onFailure();
     }
 }

@@ -29,7 +29,8 @@
         <activity android:name=".view.UserDetailActivity" />
         <activity android:name=".view.LoginActivity" />
         <activity android:name=".view.RegistrationActivity" />
-        <activity android:name=".view.RoutineViewActivity"></activity>
+        <activity android:name=".view.RoutineViewActivity" />
+        <activity android:name=".view.AttractionViewActivity"></activity>
     </application>
 
 </manifest>

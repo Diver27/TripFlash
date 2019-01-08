@@ -47,12 +47,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/delete_dest_buton"
+            android:id="@+id/select_attr_buton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="52dp"
             android:layout_marginTop="8dp"
-            android:text="删除"
+            android:text="添加"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/location" />
     </android.support.constraint.ConstraintLayout>
