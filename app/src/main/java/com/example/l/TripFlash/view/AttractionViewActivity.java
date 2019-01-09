@@ -25,8 +25,11 @@ import java.util.List;
 public class AttractionViewActivity extends AppCompatActivity implements AttractionViewInterface {
     AttractionPresenterInterface attractionPresenter;
     RecyclerView attractionListView;
-    String city;
     GlobalData globalData;
+    String type;
+    Button foodButton;
+    Button entertainButton;
+    Button tourismButton;
 
 
     @Override
@@ -34,19 +37,47 @@ public class AttractionViewActivity extends AppCompatActivity implements Attract
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attraction_view);
         globalData = (GlobalData) getApplication();
+        type=getString(R.string.food_type_code);
 
-        this.city = globalData.getCity();
         attractionPresenter = new AttractionPresenter(this, globalData);
 
         attractionListView = findViewById(R.id.attraction_recycler);
         attractionListView.setLayoutManager(new LinearLayoutManager(this));
         attractionListView.setAdapter(new AttractionAdapter(initDefaultAttractionList()));
 
+        foodButton=findViewById(R.id.food_type_button);
+        entertainButton=findViewById(R.id.entertainment_type_button);
+        tourismButton=findViewById(R.id.tourism_type_button);
+
+        foodButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                type=getString(R.string.food_type_code);
+                update();
+            }
+        });
+
+        entertainButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                type=getString(R.string.entertain_type_code);
+                update();
+            }
+        });
+
+        tourismButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                type=getString(R.string.tourism_type_code);
+                update();
+            }
+        });
+
         update();
     }
 
     private void update() {
-        attractionPresenter.getAttractionList(this, "050000");
+        attractionPresenter.getAttractionList(this, type);
     }
 
     @Override
