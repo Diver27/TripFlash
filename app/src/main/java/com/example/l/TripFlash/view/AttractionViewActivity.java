@@ -4,12 +4,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.example.l.TripFlash.GlobalData;
 import com.example.l.TripFlash.R;
 import com.example.l.TripFlash.model.AttractionModel;
 import com.example.l.TripFlash.presenter.AttractionPresenter;
@@ -22,85 +26,98 @@ public class AttractionViewActivity extends AppCompatActivity implements Attract
     AttractionPresenterInterface attractionPresenter;
     RecyclerView attractionListView;
     String city;
+    GlobalData globalData;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attraction_view);
+        globalData = (GlobalData) getApplication();
 
-        attractionPresenter=new AttractionPresenter(this,city);
+        this.city = globalData.getCity();
+        attractionPresenter = new AttractionPresenter(this, globalData);
 
-        attractionListView=findViewById(R.id.attraction_recycler);
+        attractionListView = findViewById(R.id.attraction_recycler);
         attractionListView.setLayoutManager(new LinearLayoutManager(this));
         attractionListView.setAdapter(new AttractionAdapter(initDefaultAttractionList()));
 
         update();
     }
 
-    private void update(){
-        attractionPresenter.getAttractionList(this,null);
+    private void update() {
+        attractionPresenter.getAttractionList(this, "050000");
     }
 
     @Override
-    public void showAttractionList(List<AttractionModel.AttractionSpot> attractionSpotList){
+    public void showAttractionList(List<AttractionModel.AttractionSpot> attractionSpotList) {
         attractionListView.setAdapter(new AttractionAdapter(attractionSpotList));
     }
 
-    private class AttractionHolder extends RecyclerView.ViewHolder{
+
+    private class AttractionHolder extends RecyclerView.ViewHolder {
         private AttractionModel.AttractionSpot attractionSpot;
         private TextView nameView;
-        private TextView locationView;
+        private TextView AddressView;
         private Button selectButton;
+        private ImageView photoView;
 
-        private AttractionHolder(View itemView){
+        private AttractionHolder(View itemView) {
             super(itemView);
-            nameView=findViewById(R.id.name);
-            locationView=findViewById(R.id.location);
-            selectButton=findViewById(R.id.select_attr_buton);
+            nameView = itemView.findViewById(R.id.name);
+            AddressView = itemView.findViewById(R.id.address);
+            selectButton = itemView.findViewById(R.id.select_attr_button);
+            photoView=itemView.findViewById(R.id.attraction_photo);
         }
 
-        private void bindAttraction(AttractionModel.AttractionSpot attractionSpot){
-            this.attractionSpot=attractionSpot;
+        private void bindAttraction(AttractionModel.AttractionSpot _attractionSpot) {
+            this.attractionSpot = _attractionSpot;
             nameView.setText(attractionSpot.getName());
-            locationView.setText(attractionSpot.getLocation());
+            AddressView.setText(attractionSpot.getAddress());
+            //Log.i("imageUrl",attractionSpot.getPictureUrl());
+            Glide.with(AttractionViewActivity.this)
+                    .load(attractionSpot.getPictureUrl())
+                    .into(photoView);
             selectButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     attractionPresenter.selectAttraction(attractionSpot);
+                    selectButton.setVisibility(View.INVISIBLE);
                 }
             });
         }
     }
 
-    private class AttractionAdapter extends RecyclerView.Adapter<AttractionHolder>{
+    private class AttractionAdapter extends RecyclerView.Adapter<AttractionHolder> {
         private List<AttractionModel.AttractionSpot> attractionSpotList;
 
-        public AttractionAdapter(List<AttractionModel.AttractionSpot> attractionSpotList){
-            this.attractionSpotList=attractionSpotList;
+        public AttractionAdapter(List<AttractionModel.AttractionSpot> attractionSpotList) {
+            this.attractionSpotList = attractionSpotList;
         }
 
         @Override
-        public AttractionHolder onCreateViewHolder(ViewGroup viewGroup,int i){
-            LayoutInflater layoutInflater=LayoutInflater.from(AttractionViewActivity.this);
-            View view=layoutInflater.inflate(R.layout.attraction_item,viewGroup,false);
+        public AttractionHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+            LayoutInflater layoutInflater = LayoutInflater.from(AttractionViewActivity.this);
+            View view = layoutInflater.inflate(R.layout.attraction_item, viewGroup, false);
             return new AttractionHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(AttractionHolder attractionHolder,int i){
-            AttractionModel.AttractionSpot attractionSpot=attractionSpotList.get(i);
+        public void onBindViewHolder(AttractionHolder attractionHolder, int i) {
+            AttractionModel.AttractionSpot attractionSpot = attractionSpotList.get(i);
             attractionHolder.bindAttraction(attractionSpot);
         }
 
         @Override
-        public int getItemCount(){
+        public int getItemCount() {
             return attractionSpotList.size();
         }
     }
 
-    private List<AttractionModel.AttractionSpot> initDefaultAttractionList(){
-        List<AttractionModel.AttractionSpot> defaultList=new ArrayList<>();
+    private List<AttractionModel.AttractionSpot> initDefaultAttractionList() {
+        List<AttractionModel.AttractionSpot> defaultList = new ArrayList<>();
+        defaultList.add(new AttractionModel.AttractionSpot("B","肯德基","曹安公路4799","135，268",2,"快餐连锁","\n" +
+                "http://store.is.autonavi.com/showpic/4639f862efb952bc55bc64442b32be03"));
         return defaultList;
     }
 }

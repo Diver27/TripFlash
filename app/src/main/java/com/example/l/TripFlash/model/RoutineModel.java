@@ -22,12 +22,49 @@ public class RoutineModel {
         DestList.add(destSpot);
     }
 
-    public void deleteDest(int id){
-        //TODO
+    public void deleteDest(String id){
+        for(int i=0;i<DestList.size();i++){
+            if(DestList.get(i).getId().equals(id)){
+                DestList.remove(i);
+                return;
+            }
+        }
     }
 
     public interface LoadDataCallBack{
         void onSuccess(List<DestSpot> DestList);
         void onFailure();
+    }
+
+    public static class DestSpot {
+        private String id;
+        private String name;
+        private String location;
+
+        public DestSpot(String id, String name, String location){
+            this.id=id;
+            this.name=name;
+            this.location=location;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getLocation() {
+            return location;
+        }
+
+        public void setLocation(String location) {
+            this.location = location;
+        }
     }
 }

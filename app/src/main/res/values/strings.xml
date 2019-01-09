@@ -54,6 +54,9 @@
     <string name="post_create_time_text_view_header">Posted at </string>
     <string name="comment_time_text_view_header">Commented at </string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Autonavi api path -->
+    <string name="search_poi_url">https://restapi.amap.com/v3/place/text?</string>
+    <string name="validate_city_url">https://restapi.amap.com/v3/config/district?</string>
+    <string name="find_path_distance_url">https://restapi.amap.com/v3/direction/walking?</string>
+    <string name="Autonavi_api_key">8357d346a5a67b33d55284d5ffa64660</string>
 </resources>

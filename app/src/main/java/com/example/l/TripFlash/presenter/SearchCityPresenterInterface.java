@@ -1,5 +1,7 @@
 package com.example.l.TripFlash.presenter;
 
+import android.content.Context;
+
 public interface SearchCityPresenterInterface {
-    public void getCityInterest(String cityName);
+    void searchCity(Context context, String cityName);
 }

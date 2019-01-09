@@ -37,9 +37,33 @@ public class JSONParser {
         return user;
     }
 
+    public static String parseJsonToCityName(JSONObject jsonObject){
+        String name=null;
+        try{
+            JSONArray districtsList=jsonObject.getJSONArray("districts");
+            name=districtsList.getJSONObject(0).getString("name");
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return name;
+    }
+
     public static List<AttractionModel.AttractionSpot> parseJsonToAttractionList(JSONObject jsonObject){
         List<AttractionModel.AttractionSpot> attractionSpotList=new ArrayList<>();
-        //TODO
+        try{
+            JSONArray poiList=jsonObject.optJSONArray("pois");
+            for(int i=0;i<poiList.length();i++){
+                JSONObject poi=poiList.getJSONObject(i);
+                AttractionModel.AttractionSpot attractionSpot=new AttractionModel.AttractionSpot();
+                attractionSpot.setId(poi.getString("id"));
+                attractionSpot.setAddress(poi.getString("address"));
+                attractionSpot.setLocation(poi.getString("location"));
+                attractionSpot.setName(poi.getString("name"));
+                attractionSpotList.add(attractionSpot);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         return attractionSpotList;
     }
 
