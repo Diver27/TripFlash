@@ -1,5 +1,7 @@
 package com.example.l.TripFlash.model;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +31,11 @@ public class RoutineModel {
                 return;
             }
         }
+    }
+
+    public void autoPlan(LoadDataCallBack callBack, Context context){
+
+        callBack.onSuccess(DestList);
     }
 
     public interface LoadDataCallBack{

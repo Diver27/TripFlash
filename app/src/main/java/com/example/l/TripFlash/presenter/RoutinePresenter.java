@@ -18,7 +18,7 @@ public class RoutinePresenter implements RoutinePresenterInterface,RoutineModel.
     }
 
     @Override
-    public void LoadRoutineList(Context context){
+    public void LoadRoutineList(){
         routineModel.getDestList(this);
     }
 
@@ -33,6 +33,11 @@ public class RoutinePresenter implements RoutinePresenterInterface,RoutineModel.
     @Override
     public void deleteDestSpot(String id) {
         routineModel.deleteDest(id);
+    }
+
+    @Override
+    public void autoPlan(Context context){
+        routineModel.autoPlan(this,context);
     }
 
     @Override

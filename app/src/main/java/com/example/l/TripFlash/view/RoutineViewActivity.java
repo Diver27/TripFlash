@@ -32,6 +32,7 @@ public class RoutineViewActivity extends AppCompatActivity implements RoutineVie
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView city;
     private Button addDestSpotButton;
+    private Button autoButton;
     private ImageView cityImageView;
 
     @Override
@@ -43,6 +44,7 @@ public class RoutineViewActivity extends AppCompatActivity implements RoutineVie
         city=findViewById(R.id.city);
         city.setText(globalData.getCity());
         addDestSpotButton=findViewById(R.id.add_dest_spot);
+        autoButton=findViewById(R.id.auto_button);
         cityImageView=findViewById(R.id.city_image_view);
 
         addDestSpotButton.setOnClickListener(new View.OnClickListener() {
@@ -50,6 +52,13 @@ public class RoutineViewActivity extends AppCompatActivity implements RoutineVie
             public void onClick(View v) {
                 Intent intent=new Intent(RoutineViewActivity.this,AttractionViewActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        autoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autoPlan();
             }
         });
 
@@ -75,8 +84,12 @@ public class RoutineViewActivity extends AppCompatActivity implements RoutineVie
             routinePresenter.addDestSpot(list);
             globalData.selectedListInitializer();
         }
-        routinePresenter.LoadRoutineList(this);
+        routinePresenter.LoadRoutineList();
         swipeRefreshLayout.setRefreshing(false);
+    }
+
+    private void autoPlan(){
+        routinePresenter.autoPlan(RoutineViewActivity.this);
     }
 
     @Override

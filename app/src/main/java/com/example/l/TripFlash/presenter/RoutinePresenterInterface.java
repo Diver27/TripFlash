@@ -7,7 +7,8 @@ import com.example.l.TripFlash.model.AttractionModel;
 import java.util.List;
 
 public interface RoutinePresenterInterface {
-    void LoadRoutineList(Context context);
+    void LoadRoutineList();
     void addDestSpot(List<AttractionModel.AttractionSpot> selectedAttractionList);
     void deleteDestSpot(String id);
+    void autoPlan(Context context);
 }
