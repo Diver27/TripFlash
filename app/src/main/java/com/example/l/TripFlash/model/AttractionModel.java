@@ -45,9 +45,11 @@ public class AttractionModel {
         );
     }
 
+    /*
     public void selectAttraction(int id){
 
     }
+    */
 
     /*
     public List<AttractionSpot> getSelectedAttractionList() {

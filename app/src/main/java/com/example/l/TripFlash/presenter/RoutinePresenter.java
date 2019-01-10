@@ -41,7 +41,7 @@ public class RoutinePresenter implements RoutinePresenterInterface,RoutineModel.
     }
 
     @Override
-    public void onSuccess(List<RoutineModel.DestSpot> routineList){
+    public void onLoadListSuccess(List<RoutineModel.DestSpot> routineList){
         routineView.showRoutineList(routineList);
     }
 

@@ -155,6 +155,7 @@ public class RoutineViewActivity extends AppCompatActivity implements RoutineVie
 
     private List<RoutineModel.DestSpot> initDefaultRoutineList() {
         List<RoutineModel.DestSpot> defaultList = new ArrayList<>();
+        defaultList.add(new RoutineModel.DestSpot("0","请添加地点",""));
         return defaultList;
     }
 }

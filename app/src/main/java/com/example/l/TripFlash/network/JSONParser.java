@@ -67,4 +67,15 @@ public class JSONParser {
         return attractionSpotList;
     }
 
+    public static Long parseJsonToDistance(JSONObject jsonObject){
+        Long distance=null;
+        try{
+            JSONObject route=jsonObject.getJSONObject("route");
+            JSONArray paths=route.getJSONArray("paths");
+            distance=Long.parseLong(paths.getJSONObject(0).getString("distance"));
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return distance;
+    }
 }

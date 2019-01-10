@@ -5,10 +5,14 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoutineModel {
-    private List<DestSpot> DestList;
+public class RoutineModel implements AutoPlanCallBackAssistant.DistanceCallBack {
+    private List<DestSpot> destList;
+    private Long[][] distanceList;
+    private AutoPlanCallBackAssistant autoPlanCallBackAssistant;
+    private int distanceUpdateCounter=0;
     public RoutineModel(){
-        DestList=DestListInitializer();
+        destList =DestListInitializer();
+        autoPlanCallBackAssistant =new AutoPlanCallBackAssistant();
     }
 
     private List<DestSpot> DestListInitializer(){
@@ -17,29 +21,62 @@ public class RoutineModel {
     }
 
     public void getDestList(LoadDataCallBack callBack){
-        callBack.onSuccess(DestList);
+        callBack.onLoadListSuccess(destList);
     }
 
     public void addDest(DestSpot destSpot){
-        DestList.add(destSpot);
+        destList.add(destSpot);
     }
 
     public void deleteDest(String id){
-        for(int i=0;i<DestList.size();i++){
-            if(DestList.get(i).getId().equals(id)){
-                DestList.remove(i);
+        for(int i = 0; i< destList.size(); i++){
+            if(destList.get(i).getId().equals(id)){
+                destList.remove(i);
                 return;
             }
         }
     }
 
     public void autoPlan(LoadDataCallBack callBack, Context context){
+        distanceList=new Long[destList.size()][destList.size()];
 
-        callBack.onSuccess(DestList);
+        for(int i=0;i<distanceList.length;i++){
+            for(int j=0;j<distanceList[i].length;j++){
+                distanceList[i][j]=Long.MAX_VALUE;
+            }
+        }
+        for(int i=0;i<destList.size()-1;i++) {
+            for(int j=i+1;j<destList.size();j++){
+                autoPlanCallBackAssistant.getDistance(destList.get(i),destList.get(j),context,this,i,j);
+            }
+        }
+    }
+
+    private void sortList(){
+        for(int i=0;i<destList.size()-1;i++) {
+            Long minDistance=Long.MAX_VALUE;
+            int index=-1;
+            for (int j = i+1; j < destList.size(); j++) {
+                if (distanceList[i][j] < minDistance) {
+                    index = j;
+                    minDistance = distanceList[i][j];
+                }
+            }
+            if(index==-1){
+                continue;
+            }
+            DestSpot tempSpot = destList.get(i+1);
+            destList.set(i+1, destList.get(index));
+            destList.set(index, tempSpot);
+            Long tempNum=distanceList[i][i+1];
+            distanceList[i][i+1]=minDistance;
+            distanceList[i][index]=tempNum;
+        }
+        //callBack.onLoadListSuccess(destList);
     }
 
     public interface LoadDataCallBack{
-        void onSuccess(List<DestSpot> DestList);
+        void onLoadListSuccess(List<DestSpot> DestList);
         void onFailure();
     }
 
@@ -74,4 +111,18 @@ public class RoutineModel {
             this.location = location;
         }
     }
+
+    @Override
+    public void onSuccess(int i,int j,Long distance){
+        distanceList[i][j]=distance;
+        distanceList[j][i]=distance;
+        distanceUpdateCounter+=2;
+        if(distanceUpdateCounter==destList.size()*destList.size()-destList.size()){
+            sortList();
+            distanceUpdateCounter=0;
+        }
+    }
+
+    @Override
+    public void onFailure(){}
 }
