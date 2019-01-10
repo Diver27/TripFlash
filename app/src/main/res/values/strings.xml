@@ -58,13 +58,13 @@
     <string name="search_poi_url">https://restapi.amap.com/v3/place/text?</string>
     <string name="validate_city_url">https://restapi.amap.com/v3/config/district?</string>
     <string name="find_path_distance_url">https://restapi.amap.com/v3/direction/driving?</string>
+    <string name="static_map_url">https://restapi.amap.com/v3/staticmap?</string>
     <string name="Autonavi_api_key">8357d346a5a67b33d55284d5ffa64660</string>
     <string name="food_type_code">050000</string>
     <string name="entertain_type_code">080300</string>
     <string name="tourism_type_code">110200</string>
 
     <string name="city_stock_title_image">https://www.telegraph.co.uk/content/dam/Travel/2018/January/sydney-best-GETTY.jpg</string>
-    <string name="poi_stock_image">https://dukeofyorkbelfast.com/wp-content/uploads/2017/11/Harp-bar-005.jpg</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

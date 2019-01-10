@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.l.TripFlash.GlobalData;
@@ -33,6 +34,7 @@ public class RoutineViewActivity extends AppCompatActivity implements RoutineVie
     private TextView city;
     private Button addDestSpotButton;
     private Button autoButton;
+    private Button saveButton;
     private ImageView cityImageView;
 
     @Override
@@ -46,6 +48,7 @@ public class RoutineViewActivity extends AppCompatActivity implements RoutineVie
         addDestSpotButton=findViewById(R.id.add_dest_spot);
         autoButton=findViewById(R.id.auto_button);
         cityImageView=findViewById(R.id.city_image_view);
+        saveButton=findViewById(R.id.save_button);
 
         addDestSpotButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +61,23 @@ public class RoutineViewActivity extends AppCompatActivity implements RoutineVie
         autoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autoPlan();
+                if(routineListView.getAdapter().getItemCount()==0){
+                    Toast.makeText(RoutineViewActivity.this,"列表为空",Toast.LENGTH_SHORT)
+                            .show();
+                }else {
+                    routinePresenter.autoPlan(RoutineViewActivity.this);
+                    Toast.makeText(RoutineViewActivity.this,"已根据您的喜好自动优化了行程",Toast.LENGTH_SHORT)
+                            .show();
+                }
+            }
+        });
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                routinePresenter.saveRoute(RoutineViewActivity.this);
+                Toast.makeText(RoutineViewActivity.this, "已保存至便签",
+                        Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -92,13 +111,15 @@ public class RoutineViewActivity extends AppCompatActivity implements RoutineVie
         swipeRefreshLayout.setRefreshing(false);
     }
 
-    private void autoPlan(){
-        routinePresenter.autoPlan(RoutineViewActivity.this);
-    }
-
     @Override
     public void showRoutineList(List<RoutineModel.DestSpot> routineList) {
         routineListView.setAdapter(new DestSpotAdapter(routineList));
+    }
+
+    @Override
+    protected  void onResume() {
+        update();
+        super.onResume();
     }
 
     /**
@@ -108,16 +129,19 @@ public class RoutineViewActivity extends AppCompatActivity implements RoutineVie
         private RoutineModel.DestSpot destSpot;
         private TextView nameView;
         private Button deleteButton;
+        private TextView timeSlotview;
 
         private DestHolder(View itemView) {
             super(itemView);
             nameView = itemView.findViewById(R.id.name);
             deleteButton = itemView.findViewById(R.id.delete_dest_buton);
+            timeSlotview=itemView.findViewById(R.id.time_slot_view);
         }
 
         private void bindDestSpot(RoutineModel.DestSpot dSpot) {
             destSpot = dSpot;
             nameView.setText(destSpot.getName());
+            timeSlotview.setText(destSpot.getTimeSlot());
             /**
              * 删除路径点按钮监听
              */

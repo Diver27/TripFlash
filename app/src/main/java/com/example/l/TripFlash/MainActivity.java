@@ -20,6 +20,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.l.TripFlash.model.dto.User;
 import com.example.l.TripFlash.view.CardFragment;
+import com.example.l.TripFlash.view.GalleryViewFragment;
 import com.example.l.TripFlash.view.LoginActivity;
 import com.example.l.TripFlash.view.MainPagerAdapter;
 import com.example.l.TripFlash.view.SetLabelFragment;
@@ -116,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
     private void setUpViewPager() {
         MainPagerAdapter mainPagerAdapter = new MainPagerAdapter(getSupportFragmentManager());
         mainPagerAdapter.addFragment(SearchCityFragment.newInstance(), "新旅行");
-        mainPagerAdapter.addFragment(CardFragment.newInstance(1), "便签夹");
+        mainPagerAdapter.addFragment(GalleryViewFragment.newInstance(), "便签夹");
         mainPagerAdapter.addFragment(SetLabelFragment.newInstance(), "我的标签");
         viewPager.setAdapter(mainPagerAdapter);
     }

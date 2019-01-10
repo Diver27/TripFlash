@@ -37,7 +37,12 @@ public class RoutinePresenter implements RoutinePresenterInterface,RoutineModel.
 
     @Override
     public void autoPlan(Context context){
-        routineModel.autoPlan(this,context);
+        routineModel.getAllDistance(this,context);
+    }
+
+    @Override
+    public void saveRoute(Context context){
+
     }
 
     @Override

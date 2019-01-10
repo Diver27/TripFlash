@@ -10,7 +10,7 @@ import com.example.l.TripFlash.network.VolleyRequest;
 
 import org.json.JSONObject;
 
-public class AutoPlanCallBackAssistant {
+public class GetDestinationsDistancesUtility {
     public void getDistance(RoutineModel.DestSpot origin, RoutineModel.DestSpot destination,Context context,DistanceCallBack callBack,int i,int j){
         VolleyRequest.getJSONObject(
                 JsonRequest.Method.GET,
@@ -18,19 +18,19 @@ public class AutoPlanCallBackAssistant {
                 null, context, new VolleyCallback() {
                     @Override
                     public void onSuccess(JSONObject jsonObject, Context context) {
-                        callBack.onSuccess(i,j,JSONParser.parseJsonToDistance(jsonObject));
+                        callBack.onGetDistanceSuccess(i,j,JSONParser.parseJsonToDistance(jsonObject));
                     }
 
                     @Override
                     public void onFailure() {
-
+                        callBack.onGetDistanceFailure(context);
                     }
                 }
         );
     }
 
     public static interface DistanceCallBack{
-        void onSuccess(int i,int j,Long distance);
-        void onFailure();
+        void onGetDistanceSuccess(int i, int j, Long distance);
+        void onGetDistanceFailure(Context context);
     }
 }
