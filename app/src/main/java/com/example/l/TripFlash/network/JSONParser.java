@@ -60,6 +60,7 @@ public class JSONParser {
                 attractionSpot.setLocation(poi.getString("location"));
                 attractionSpot.setName(poi.getString("name"));
                 attractionSpot.setType(poi.getString("type"));
+                attractionSpot.setPictureUrl(poi.getJSONArray("photos").getJSONObject(0).getString("url"));
                 attractionSpotList.add(attractionSpot);
             }
         }catch(Exception e){

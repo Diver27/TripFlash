@@ -24,7 +24,7 @@
                 android:layout_marginEnd="60dp"
                 android:text="优化"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/routine_recycler" />
+                app:layout_constraintTop_toBottomOf="@+id/cardView2" />
 
             <Button
                 android:id="@+id/add_dest_spot"
@@ -34,7 +34,7 @@
                 android:layout_marginTop="8dp"
                 android:text="添加"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/routine_recycler" />
+                app:layout_constraintTop_toBottomOf="@+id/cardView2" />
 
             <android.support.v7.widget.CardView
                 android:id="@+id/cardView2"
@@ -100,13 +100,14 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/routine_recycler"
                 android:layout_width="match_parent"
-                android:layout_height="407dp"
+                android:layout_height="500dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardView2"
+                app:layout_constraintTop_toBottomOf="@+id/add_dest_spot"
                 tools:listitem="@layout/routine_item" />
 
         </android.support.constraint.ConstraintLayout>

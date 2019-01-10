@@ -45,19 +45,7 @@ public class AttractionModel {
         );
     }
 
-    /*
-    public void selectAttraction(int id){
-
-    }
-    */
-
-    /*
-    public List<AttractionSpot> getSelectedAttractionList() {
-        return selectedAttractionList;
-    }
-    */
-
-    public static class AttractionSpot/* implements Parcelable*/{
+    public static class AttractionSpot{
         private String id;
         private String name;
         private String address;
@@ -79,14 +67,6 @@ public class AttractionModel {
         }
 
         public AttractionSpot(){}
-
-        /*
-        public AttractionSpot(Parcel in){
-            id=in.readInt();
-            name=in.readString();
-            location=in.readString();
-        }
-        */
 
         public String getId() {
             return id;

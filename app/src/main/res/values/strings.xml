@@ -65,4 +65,7 @@
 
     <string name="city_stock_title_image">https://www.telegraph.co.uk/content/dam/Travel/2018/January/sydney-best-GETTY.jpg</string>
     <string name="poi_stock_image">https://dukeofyorkbelfast.com/wp-content/uploads/2017/11/Harp-bar-005.jpg</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

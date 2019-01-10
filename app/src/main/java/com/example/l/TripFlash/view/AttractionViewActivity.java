@@ -4,7 +4,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -105,9 +104,8 @@ public class AttractionViewActivity extends AppCompatActivity implements Attract
             this.attractionSpot = _attractionSpot;
             nameView.setText(attractionSpot.getName());
             AddressView.setText(attractionSpot.getAddress());
-            //Log.i("imageUrl",attractionSpot.getPictureUrl());
             Glide.with(AttractionViewActivity.this)
-                    .load(getString(R.string.poi_stock_image))
+                    .load(attractionSpot.getPictureUrl())
                     .into(photoView);
             selectButton.setOnClickListener(new View.OnClickListener() {
                 @Override
