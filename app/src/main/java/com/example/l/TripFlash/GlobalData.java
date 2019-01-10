@@ -11,6 +11,9 @@ import java.util.List;
 public class GlobalData extends Application {
     private User primaryUser;
     private String city;
+    private String preferedRestarautType;
+    private String preferedEntertainmentType;
+    private String preferedTourismType;
     private List<AttractionModel.AttractionSpot> selectedList=new ArrayList<>();
 
     public User getPrimaryUser() {
@@ -39,5 +42,29 @@ public class GlobalData extends Application {
 
     public void selectedListInitializer(){
         selectedList=new ArrayList<>();
+    }
+
+    public String getPreferedRestarautType() {
+        return preferedRestarautType;
+    }
+
+    public void setPreferedRestarautType(String preferedRestarautType) {
+        this.preferedRestarautType = preferedRestarautType;
+    }
+
+    public String getPreferedEntertainmentType() {
+        return preferedEntertainmentType;
+    }
+
+    public void setPreferedEntertainmentType(String preferedEntertainmentType) {
+        this.preferedEntertainmentType = preferedEntertainmentType;
+    }
+
+    public String getPreferedTourismType() {
+        return preferedTourismType;
+    }
+
+    public void setPreferedTourismType(String preferedTourismType) {
+        this.preferedTourismType = preferedTourismType;
     }
 }

@@ -51,7 +51,11 @@ public class AttractionViewActivity extends AppCompatActivity implements Attract
         foodButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                type=getString(R.string.food_type_code);
+                if(globalData.getPreferedRestarautType()!=null){
+                    type=globalData.getPreferedRestarautType();
+                }else {
+                    type = getString(R.string.food_type_code);
+                }
                 update();
             }
         });
@@ -59,7 +63,11 @@ public class AttractionViewActivity extends AppCompatActivity implements Attract
         entertainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                type=getString(R.string.entertain_type_code);
+                if(globalData.getPreferedEntertainmentType()!=null){
+                    type=globalData.getPreferedEntertainmentType();
+                }else {
+                    type = getString(R.string.entertain_type_code);
+                }
                 update();
             }
         });
@@ -67,7 +75,11 @@ public class AttractionViewActivity extends AppCompatActivity implements Attract
         tourismButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                type=getString(R.string.tourism_type_code);
+                if(globalData.getPreferedTourismType()!=null){
+                    type=globalData.getPreferedTourismType();
+                }else {
+                    type = getString(R.string.tourism_type_code);
+                }
                 update();
             }
         });

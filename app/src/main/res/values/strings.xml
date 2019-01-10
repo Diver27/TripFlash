@@ -62,7 +62,7 @@
     <string name="nearby_attraction_url">https://restapi.amap.com/v3/place/around?</string>
     <string name="Autonavi_api_key">8357d346a5a67b33d55284d5ffa64660</string>
     <string name="food_type_code">050000</string>
-    <string name="entertain_type_code">080300</string>
+    <string name="entertain_type_code">080000</string>
     <string name="tourism_type_code">110200</string>
 
     <string name="city_stock_title_image">https://www.telegraph.co.uk/content/dam/Travel/2018/January/sydney-best-GETTY.jpg</string>

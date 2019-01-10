@@ -4,7 +4,10 @@ import android.content.Context;
 
 import com.example.l.TripFlash.model.AttractionModel;
 import com.example.l.TripFlash.model.RoutineModel;
+import com.example.l.TripFlash.network.JSONParser;
 import com.example.l.TripFlash.view.RoutineViewInterface;
+
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -41,13 +44,17 @@ public class RoutinePresenter implements RoutinePresenterInterface,RoutineModel.
     }
 
     @Override
-    public void saveRoute(Context context){
-
+    public String exportRoute(Context context){
+        return routineModel.exportRoute(context);
     }
 
     @Override
     public void onLoadListSuccess(List<RoutineModel.DestSpot> routineList){
         routineView.showRoutineList(routineList);
+    }
+
+    @Override
+    public void onGetStaticMapSuccess(JSONObject jsonObject){
     }
 
     @Override

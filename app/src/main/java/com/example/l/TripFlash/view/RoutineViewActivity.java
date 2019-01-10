@@ -34,7 +34,7 @@ public class RoutineViewActivity extends AppCompatActivity implements RoutineVie
     private TextView city;
     private Button addDestSpotButton;
     private Button autoButton;
-    private Button saveButton;
+    private Button exportButton;
     private ImageView cityImageView;
 
     @Override
@@ -48,7 +48,7 @@ public class RoutineViewActivity extends AppCompatActivity implements RoutineVie
         addDestSpotButton=findViewById(R.id.add_dest_spot);
         autoButton=findViewById(R.id.auto_button);
         cityImageView=findViewById(R.id.city_image_view);
-        saveButton=findViewById(R.id.save_button);
+        exportButton =findViewById(R.id.export_button);
 
         addDestSpotButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,10 +72,10 @@ public class RoutineViewActivity extends AppCompatActivity implements RoutineVie
             }
         });
 
-        saveButton.setOnClickListener(new View.OnClickListener() {
+        exportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                routinePresenter.saveRoute(RoutineViewActivity.this);
+                String url=routinePresenter.exportRoute(RoutineViewActivity.this);
                 Toast.makeText(RoutineViewActivity.this, "已保存至便签",
                         Toast.LENGTH_SHORT).show();
             }

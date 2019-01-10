@@ -1,7 +1,18 @@
 package com.example.l.TripFlash.model;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.Message;
 import android.widget.Toast;
+
+import com.android.volley.toolbox.JsonRequest;
+import com.bumptech.glide.Glide;
+import com.example.l.TripFlash.R;
+import com.example.l.TripFlash.network.VolleyCallback;
+import com.example.l.TripFlash.network.VolleyRequest;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,25 +46,12 @@ public class RoutineModel implements RoutineAutoPlanUtility.AutoPlanUtilityCallB
         }
     }
 
-    /*
-    public void saveRoute(Context context,LoadDataCallBack callBack){
-        VolleyRequest.getJSONObject(
-                JsonRequest.Method.GET,
-                context.getString(R.string.static_map_url) + "key=" + context.getString(R.string.Autonavi_api_key) + "&labels=" + getLocationString() + "&paths=" + getPathString(),
-                null, context, new VolleyCallback() {
-                    @Override
-                    public void onGetDistanceSuccess(JSONObject jsonObject, Context context) {
 
-                    }
-
-                    @Override
-                    public void onGetDistanceFailure() {
-
-                    }
-                }
-        );
+    public String exportRoute(Context context){
+        String url=context.getString(R.string.static_map_url) + "key=" + context.getString(R.string.Autonavi_api_key) + "&labels=" + getLocationString() + "&paths=" + getPathString();
+        return url;
     }
-    */
+
 
     public void getAllDistance(LoadDataCallBack callBack, Context context){
         this.context=context;
@@ -134,12 +132,14 @@ public class RoutineModel implements RoutineAutoPlanUtility.AutoPlanUtilityCallB
                 }
 
                 if (((j == 0 || j == 2) && destList.get(destListCounter).getType().startsWith("餐饮"))) {
+                    /*
                     if(i==0&&j==0){
                         emptySpotList.add(new EmptySpot("第" + String.valueOf(i + 1) + "日" + temp, destListCounter + 1, "110000|080300"));
                     }else {
-                        emptySpotList.add(new EmptySpot("第" + String.valueOf(i + 1) + "日" + temp, destListCounter - 1, "110000|080300"));
+                    */
+                        emptySpotList.add(new EmptySpot("第" + String.valueOf(i + 1) + "日" + temp, destListCounter - 1, "110000|080000"));
                         continue;
-                    }
+
                 } else if (((j == 1 || j == 3) && !destList.get(destListCounter).getType().startsWith("餐饮"))) {
                     emptySpotList.add(new EmptySpot("第" + String.valueOf(i + 1) + "日" + temp, destListCounter - 1, "050000"));
                     continue;
@@ -159,7 +159,7 @@ public class RoutineModel implements RoutineAutoPlanUtility.AutoPlanUtilityCallB
         }
     }
 
-    /*
+
     private String getLocationString(){
         String completeLocation=destList.get(0).getName()+",2,0,16,0xFFFFFF,0x008000:"+destList.get(0).getLocation();
         for(int i=1;i<destList.size();i++){
@@ -175,11 +175,10 @@ public class RoutineModel implements RoutineAutoPlanUtility.AutoPlanUtilityCallB
         }
         return completePath;
     }
-    */
 
     public interface LoadDataCallBack{
         void onLoadListSuccess(List<DestSpot> DestList);
-        //void onGetStaticMapSuccess(JSONObject jsonObject);
+        void onGetStaticMapSuccess(JSONObject jsonObject);
         void onFailure();
     }
 

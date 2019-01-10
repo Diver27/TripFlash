@@ -11,5 +11,5 @@ public interface RoutinePresenterInterface {
     void addDestSpot(List<AttractionModel.AttractionSpot> selectedAttractionList);
     void deleteDestSpot(String id);
     void autoPlan(Context context);
-    void saveRoute(Context context);
+    String exportRoute(Context context);
 }

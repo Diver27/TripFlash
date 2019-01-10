@@ -63,5 +63,5 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
-    //implementation 'com.amap.api:search:latest.integration'
+    implementation 'org.litepal.android:core:2.0.0'
 }
