@@ -59,6 +59,7 @@ public class JSONParser {
                 attractionSpot.setAddress(poi.getString("address"));
                 attractionSpot.setLocation(poi.getString("location"));
                 attractionSpot.setName(poi.getString("name"));
+                attractionSpot.setType(poi.getString("type"));
                 attractionSpotList.add(attractionSpot);
             }
         }catch(Exception e){

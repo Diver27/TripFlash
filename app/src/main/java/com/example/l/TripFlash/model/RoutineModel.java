@@ -75,6 +75,29 @@ public class RoutineModel implements AutoPlanCallBackAssistant.DistanceCallBack 
         //callBack.onLoadListSuccess(destList);
     }
 
+    private void setTimeSlot(){
+        int timeSlot;
+        if(destList.get(0).getType().startsWith("餐饮")){
+            timeSlot=1;
+        }else{
+            timeSlot=0;
+        }
+        for(int i=0;i<destList.size();i++){
+            String time;
+            if(timeSlot%4==0){
+                time="上午";
+            }else if(timeSlot%4==1){
+                time="中午";
+            }else if(timeSlot%4==2){
+                time="下午";
+            }else{
+                time="夜晚";
+            }
+            destList.get(i).setTime(time);
+            timeSlot++;
+        }
+    }
+
     public interface LoadDataCallBack{
         void onLoadListSuccess(List<DestSpot> DestList);
         void onFailure();
@@ -84,11 +107,14 @@ public class RoutineModel implements AutoPlanCallBackAssistant.DistanceCallBack 
         private String id;
         private String name;
         private String location;
+        private String type;
+        private String time;
 
-        public DestSpot(String id, String name, String location){
+        public DestSpot(String id, String name, String location,String type){
             this.id=id;
             this.name=name;
             this.location=location;
+            this.type=type;
         }
 
         public String getId() {
@@ -109,6 +135,22 @@ public class RoutineModel implements AutoPlanCallBackAssistant.DistanceCallBack 
 
         public void setLocation(String location) {
             this.location = location;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getTime() {
+            return time;
+        }
+
+        public void setTime(String time) {
+            this.time = time;
         }
     }
 

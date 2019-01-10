@@ -34,6 +34,7 @@ public class AttractionPresenter implements AttractionPresenterInterface,Attract
         attractionModel.getAttractionList(this,context);
     }
 
+    /*
     public List<AttractionModel.AttractionSpot> getDemoAttractionList(){
         List<AttractionModel.AttractionSpot> attractionSpotList=new ArrayList<>();
         attractionSpotList.add(new AttractionModel.AttractionSpot("A","嘉苑","曹安公路4800","123,456",1,"同济大学食堂","\n" +
@@ -44,7 +45,7 @@ public class AttractionPresenter implements AttractionPresenterInterface,Attract
                 "http://store.is.autonavi.com/showpic/4639f862efb952bc55bc64442b32be03"));
         return attractionSpotList;
     }
-
+    */
     @Override
     public void selectAttraction(AttractionModel.AttractionSpot attractionSpot){
         globalData.addSelectAttraction(attractionSpot);

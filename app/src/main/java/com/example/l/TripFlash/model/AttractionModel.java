@@ -62,11 +62,12 @@ public class AttractionModel {
         private String name;
         private String address;
         private String location;
+        private String type;
         private int rating;
         private String description;
         private String pictureUrl;
 
-        public AttractionSpot(String id,String name,String address,String location,int rating,String description,String pictureUrl){
+        public AttractionSpot(String id,String name,String address,String location,int rating,String description,String pictureUrl,String type){
             this.id=id;
             this.name=name;
             this.location=location;
@@ -74,6 +75,7 @@ public class AttractionModel {
             this.rating=rating;
             this.description=description;
             this.pictureUrl=pictureUrl;
+            this.type=type;
         }
 
         public AttractionSpot(){}
@@ -142,32 +144,13 @@ public class AttractionModel {
             this.pictureUrl = pictureUrl;
         }
 
-        /*
-        @Override
-        public int describeContents() {
-            return 0;
+        public String getType() {
+            return type;
         }
 
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeInt(id);
-            dest.writeString(name);
-            dest.writeString(location);
+        public void setType(String type) {
+            this.type = type;
         }
-
-        public final Parcelable.Creator<AttractionSpot> CREATOR = new Creator<AttractionSpot>() {
-
-            @Override
-            public AttractionSpot createFromParcel(Parcel in) {
-                return new AttractionSpot(in);
-            }
-
-            @Override
-            public AttractionSpot[] newArray(int size) {
-                return new AttractionSpot[size];
-            }
-        };
-        */
     }
 
     public interface AttractionCallBack{

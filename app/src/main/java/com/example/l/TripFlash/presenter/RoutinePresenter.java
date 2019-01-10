@@ -26,7 +26,7 @@ public class RoutinePresenter implements RoutinePresenterInterface,RoutineModel.
     public void addDestSpot(List<AttractionModel.AttractionSpot> selectedAttractionList) {
         for(int i=0;i<selectedAttractionList.size();i++){
             AttractionModel.AttractionSpot temp=selectedAttractionList.get(i);
-            routineModel.addDest(new RoutineModel.DestSpot(temp.getId(),temp.getName(),temp.getLocation()));
+            routineModel.addDest(new RoutineModel.DestSpot(temp.getId(),temp.getName(),temp.getLocation(),temp.getType()));
         }
     }
 

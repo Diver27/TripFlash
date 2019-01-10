@@ -62,6 +62,10 @@ public class RoutineViewActivity extends AppCompatActivity implements RoutineVie
             }
         });
 
+        Glide.with(this)
+                .load(getString(R.string.city_stock_title_image))
+                .into(cityImageView);
+
         routinePresenter = new RoutinePresenter(this);
         swipeRefreshLayout = findViewById(R.id.routine_slide_refresh);
 
@@ -155,7 +159,7 @@ public class RoutineViewActivity extends AppCompatActivity implements RoutineVie
 
     private List<RoutineModel.DestSpot> initDefaultRoutineList() {
         List<RoutineModel.DestSpot> defaultList = new ArrayList<>();
-        defaultList.add(new RoutineModel.DestSpot("0","请添加地点",""));
+        defaultList.add(new RoutineModel.DestSpot("0","请添加地点","",""));
         return defaultList;
     }
 }

@@ -107,7 +107,7 @@ public class AttractionViewActivity extends AppCompatActivity implements Attract
             AddressView.setText(attractionSpot.getAddress());
             //Log.i("imageUrl",attractionSpot.getPictureUrl());
             Glide.with(AttractionViewActivity.this)
-                    .load(attractionSpot.getPictureUrl())
+                    .load(getString(R.string.poi_stock_image))
                     .into(photoView);
             selectButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -148,7 +148,7 @@ public class AttractionViewActivity extends AppCompatActivity implements Attract
     private List<AttractionModel.AttractionSpot> initDefaultAttractionList() {
         List<AttractionModel.AttractionSpot> defaultList = new ArrayList<>();
         defaultList.add(new AttractionModel.AttractionSpot("B","肯德基","曹安公路4799","135，268",2,"快餐连锁","\n" +
-                "http://store.is.autonavi.com/showpic/4639f862efb952bc55bc64442b32be03"));
+                "http://store.is.autonavi.com/showpic/4639f862efb952bc55bc64442b32be03",""));
         return defaultList;
     }
 }
