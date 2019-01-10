@@ -59,6 +59,7 @@
     <string name="validate_city_url">https://restapi.amap.com/v3/config/district?</string>
     <string name="find_path_distance_url">https://restapi.amap.com/v3/direction/driving?</string>
     <string name="static_map_url">https://restapi.amap.com/v3/staticmap?</string>
+    <string name="nearby_attraction_url">https://restapi.amap.com/v3/place/around?</string>
     <string name="Autonavi_api_key">8357d346a5a67b33d55284d5ffa64660</string>
     <string name="food_type_code">050000</string>
     <string name="entertain_type_code">080300</string>

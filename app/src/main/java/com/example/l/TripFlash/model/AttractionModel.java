@@ -1,18 +1,13 @@
 package com.example.l.TripFlash.model;
 
 import android.content.Context;
-import android.os.Parcel;
-import android.os.Parcelable;
 
-import com.amap.api.services.poisearch.PoiSearch;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.l.TripFlash.R;
 import com.example.l.TripFlash.network.VolleyCallback;
 import com.example.l.TripFlash.network.VolleyRequest;
 
 import org.json.JSONObject;
-
-import java.util.List;
 
 public class AttractionModel {
     private String city;
@@ -34,7 +29,7 @@ public class AttractionModel {
                 null, context, new VolleyCallback() {
                     @Override
                     public void onSuccess(JSONObject jsonObject, Context context) {
-                        callBack.OnSuccess(jsonObject);
+                        callBack.onAttractionCallSuccess(jsonObject);
                     }
 
                     @Override
@@ -134,8 +129,8 @@ public class AttractionModel {
     }
 
     public interface AttractionCallBack{
-        void OnSuccess(JSONObject jsonObject);
-        void OnFailure();
+        void onAttractionCallSuccess(JSONObject jsonObject);
+        void onAttractionCallFailure();
     }
 
 

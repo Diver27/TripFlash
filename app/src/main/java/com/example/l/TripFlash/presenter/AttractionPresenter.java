@@ -40,12 +40,12 @@ public class AttractionPresenter implements AttractionPresenterInterface,Attract
     }
 
     @Override
-    public void OnSuccess(JSONObject jsonObject){
+    public void onAttractionCallSuccess(JSONObject jsonObject){
         attractionView.showAttractionList(JSONParser.parseJsonToAttractionList(jsonObject));
     }
 
     @Override
-    public void OnFailure(){
+    public void onAttractionCallFailure(){
 
     }
 }

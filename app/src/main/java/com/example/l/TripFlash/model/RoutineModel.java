@@ -6,15 +6,16 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoutineModel implements GetDestinationsDistancesUtility.DistanceCallBack {
+public class RoutineModel implements RoutineAutoPlanUtility.AutoPlanUtilityCallBack {
     private List<DestSpot> destList;
     private Long[][] distanceList;
-    //private GetDestinationsDistancesUtility getDestinationsDistancesUtility;
+    private Context context;
+    //private RoutineAutoPlanUtility getDestinationsDistancesUtility;
     private int distanceUpdateCounter=0;
 
     public RoutineModel(){
         destList =new ArrayList<>();
-        //getDestinationsDistancesUtility =new GetDestinationsDistancesUtility();
+        //getDestinationsDistancesUtility =new RoutineAutoPlanUtility();
     }
 
     public void getDestList(LoadDataCallBack callBack){
@@ -55,8 +56,9 @@ public class RoutineModel implements GetDestinationsDistancesUtility.DistanceCal
     */
 
     public void getAllDistance(LoadDataCallBack callBack, Context context){
+        this.context=context;
         distanceList=new Long[destList.size()][destList.size()];
-        GetDestinationsDistancesUtility util=new GetDestinationsDistancesUtility();
+        RoutineAutoPlanUtility util=new RoutineAutoPlanUtility();
 
         for(int i=0;i<distanceList.length;i++){
             for(int j=0;j<distanceList[i].length;j++){
@@ -90,99 +92,74 @@ public class RoutineModel implements GetDestinationsDistancesUtility.DistanceCal
             distanceList[i][i+1]=minDistance;
             distanceList[i][index]=tempNum;
         }
-        //callBack.onLoadListSuccess(destList);
+        autoDestination();
     }
 
     private void autoDestination(){
-        int tripDaysNum=0; //计划行程天数
-        int restaurantNum=0;
-        int recreationNum=0;
-        for(int i=0;i<destList.size();i++){
-            if(destList.get(i).getType().startsWith("餐饮")){
-                restaurantNum++;
-            }else{
-                recreationNum++;
-            }
-        }
-        if(restaurantNum>recreationNum){
-            tripDaysNum=restaurantNum/2+restaurantNum%2;
-        }else{
-            tripDaysNum=recreationNum/2+recreationNum%2;
-        }
 
         //记录时间表的空缺位置
-        class emptySpot{
-            public int i;
-            public int j;
-            public emptySpot(int i,int j){
-                this.i=i;
-                this.j=j;
+        class EmptySpot {
+            public String timeSlot;
+            public int previousSpot;
+            public String type;
+
+            public EmptySpot(String timeSlot, int preIndex,String type){
+                this.timeSlot=timeSlot;
+                this.previousSpot=preIndex;
+                this.type=type;
             }
         }
-        List<emptySpot> emptySpotList=new ArrayList<>();
+        List<EmptySpot> emptySpotList=new ArrayList<>();
 
         //分配时间表
-        String[][] timeTable=new String[tripDaysNum][4];
-        int destListCounter=0;
-        for (int i = 0; i < tripDaysNum; i++) {
+        int destListCounter = 0;
+        for (int i = 0;destListCounter < destList.size() ; i++) {
             for (int j = 0; j < 4; j++) {
-                if (((j == 0 || j == 2) && destList.get(destListCounter).getType().startsWith("餐饮"))
-                        || ((j == 1 || j == 3) && !destList.get(destListCounter).getType().startsWith("餐饮"))) {
-                    emptySpotList.add(new emptySpot(i,j));
-                    continue;
-                }else{
-                    timeTable[i][j]=destList.get(destListCounter).getId();
-                    String temp;
-                    switch (j) {
-                        case 0:
-                            temp = "上午";
-                            break;
-                        case 1:
-                            temp = "中午";
-                            break;
-                        case 2:
-                            temp = "下午";
-                            break;
-                        case 3:
-                            temp = "晚间";
-                            break;
-                        default:
-                            temp = "ERROR";
+                String temp;
+                switch (j) {
+                    case 0:
+                        temp = "上午";
+                        break;
+                    case 1:
+                        temp = "中午";
+                        break;
+                    case 2:
+                        temp = "下午";
+                        break;
+                    case 3:
+                        temp = "晚间";
+                        break;
+                    default:
+                        temp = "ERROR";
+                }
+
+                if (((j == 0 || j == 2) && destList.get(destListCounter).getType().startsWith("餐饮"))) {
+                    if(i==0&&j==0){
+                        emptySpotList.add(new EmptySpot("第" + String.valueOf(i + 1) + "日" + temp, destListCounter + 1, "110000|080300"));
+                    }else {
+                        emptySpotList.add(new EmptySpot("第" + String.valueOf(i + 1) + "日" + temp, destListCounter - 1, "110000|080300"));
+                        continue;
                     }
-                    destList.get(destListCounter).setTimeSlot("第"+String.valueOf(i+1)+"日"+temp);
+                } else if (((j == 1 || j == 3) && !destList.get(destListCounter).getType().startsWith("餐饮"))) {
+                    emptySpotList.add(new EmptySpot("第" + String.valueOf(i + 1) + "日" + temp, destListCounter - 1, "050000"));
+                    continue;
+                } else {
+                    destList.get(destListCounter).setTimeSlot("第" + String.valueOf(i + 1) + "日" + temp);
                     destListCounter++;
+                    if(destListCounter >= destList.size()){
+                        break;
+                    }
                 }
             }
         }
 
-        //
+        RoutineAutoPlanUtility util=new RoutineAutoPlanUtility();
+        for(int i=0;i<emptySpotList.size();i++){
+            util.getNearbyAttraction(this,context,destList.get(emptySpotList.get(i).previousSpot).location,emptySpotList.get(i).type,emptySpotList.get(i).previousSpot+1,emptySpotList.get(i).timeSlot);
+        }
     }
 
     /*
-    private void setTimeSlot(){
-        int timeSlot;
-        if(destList.get(0).getType().startsWith("餐饮")){
-            timeSlot=1;
-        }else{
-            timeSlot=0;
-        }
-        for(int i=0;i<destList.size();i++){
-            String timeSlot;
-            if(timeSlot%4==0){
-                timeSlot="上午";
-            }else if(timeSlot%4==1){
-                timeSlot="中午";
-            }else if(timeSlot%4==2){
-                timeSlot="下午";
-            }else{
-                timeSlot="夜晚";
-            }
-            destList.get(i).setTimeSlot(timeSlot);
-            timeSlot++;
-        }
-    }
-    */
-
     private String getLocationString(){
         String completeLocation=destList.get(0).getName()+",2,0,16,0xFFFFFF,0x008000:"+destList.get(0).getLocation();
         for(int i=1;i<destList.size();i++){
@@ -198,6 +175,7 @@ public class RoutineModel implements GetDestinationsDistancesUtility.DistanceCal
         }
         return completePath;
     }
+    */
 
     public interface LoadDataCallBack{
         void onLoadListSuccess(List<DestSpot> DestList);
@@ -272,5 +250,24 @@ public class RoutineModel implements GetDestinationsDistancesUtility.DistanceCal
     public void onGetDistanceFailure(Context context){
         Toast.makeText(context,"网络请求失败，距离获取错误",Toast.LENGTH_SHORT)
                 .show();
+    }
+
+    @Override
+    public void onGetNearAttractionSuccess(List<AttractionModel.AttractionSpot> nearAttractionList,int index,String timeSlot){
+        for(int i=0;i<nearAttractionList.size();i++){
+            Boolean isIn=false;
+            for(int j=0;j<destList.size();j++){
+                if(destList.get(j).getId()==nearAttractionList.get(i).getId()){
+                    isIn=true;
+                }
+            }
+            if(isIn==false){
+                AttractionModel.AttractionSpot temp=nearAttractionList.get(i);
+                DestSpot newDest=new DestSpot(temp.getId(),temp.getName(),temp.getLocation(),temp.getType());
+                newDest.setTimeSlot(timeSlot);
+                destList.add(index,newDest);
+                break;
+            }
+        }
     }
 }
