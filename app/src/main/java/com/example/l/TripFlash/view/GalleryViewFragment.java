@@ -16,6 +16,7 @@ import com.example.l.TripFlash.presenter.GalleryPresenter;
 import com.example.l.TripFlash.presenter.GalleryPresenterInterface;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class GalleryViewFragment extends android.support.v4.app.Fragment implements GalleryViewInterface {
@@ -41,6 +42,17 @@ public class GalleryViewFragment extends android.support.v4.app.Fragment impleme
 
         galleryPresenter.getPlanList();
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        if(globalData.ifChanged){
+            Calendar calendar = Calendar.getInstance();
+            galleryPresenter.addPlan(globalData.getCity(),String.valueOf(calendar.get(Calendar.YEAR))+"."+String.valueOf(calendar.get(Calendar.MONTH)+1),globalData.getDestSpotList());
+            globalData.ifChanged=false;
+            galleryPresenter.getPlanList();
+        }
+        super.onResume();
     }
 
     @Override

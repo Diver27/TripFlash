@@ -47,6 +47,9 @@ public class RoutineModel implements RoutineAutoPlanUtility.AutoPlanUtilityCallB
         }
     }
 
+    public List<DestSpot> getDestList() {
+        return destList;
+    }
 
     public String exportRoute(Context context){
 

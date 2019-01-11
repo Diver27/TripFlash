@@ -3,6 +3,7 @@ package com.example.l.TripFlash;
 import android.app.Application;
 
 import com.example.l.TripFlash.model.AttractionModel;
+import com.example.l.TripFlash.model.RoutineModel;
 import com.example.l.TripFlash.model.dto.User;
 
 import java.util.ArrayList;
@@ -66,5 +67,16 @@ public class GlobalData extends Application {
 
     public void setPreferedTourismType(String preferedTourismType) {
         this.preferedTourismType = preferedTourismType;
+    }
+
+    private List<RoutineModel.DestSpot> destSpotList;
+    public boolean ifChanged;
+
+    public List<RoutineModel.DestSpot> getDestSpotList() {
+        return destSpotList;
+    }
+
+    public void setDestSpotList(List<RoutineModel.DestSpot> destSpotList) {
+        this.destSpotList = destSpotList;
     }
 }

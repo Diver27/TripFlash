@@ -73,6 +73,14 @@ public class SetLabelFragment extends android.support.v4.app.Fragment implements
                         }else{
                             globalData.setPreferedTourismType(label.getDescription());
                         }
+                    } else if(!isChecked){
+                        if(label.getId()==1){
+                            globalData.setPreferedRestarautType(null);
+                        }else if(label.getId()==2){
+                            globalData.setPreferedEntertainmentType(null);
+                        }else{
+                            globalData.setPreferedTourismType(null);
+                        }
                     }
                 }
             });

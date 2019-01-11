@@ -76,6 +76,8 @@ public class RoutineViewActivity extends AppCompatActivity implements RoutineVie
             @Override
             public void onClick(View v) {
                 String url=routinePresenter.exportRoute(RoutineViewActivity.this);
+                globalData.setDestSpotList(routinePresenter.getRoutineList());
+                globalData.ifChanged=true;
                 Toast.makeText(RoutineViewActivity.this, "已保存至便签",
                         Toast.LENGTH_SHORT).show();
             }

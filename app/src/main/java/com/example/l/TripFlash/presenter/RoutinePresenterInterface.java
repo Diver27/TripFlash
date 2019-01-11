@@ -14,4 +14,5 @@ public interface RoutinePresenterInterface {
     void autoPlan(Context context);
     String exportRoute(Context context);
     void saveToGallery(List<RoutineModel.DestSpot> destSpotList);
+    List<RoutineModel.DestSpot> getRoutineList();
 }
