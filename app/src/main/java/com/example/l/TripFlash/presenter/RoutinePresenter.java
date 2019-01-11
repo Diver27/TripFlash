@@ -49,6 +49,11 @@ public class RoutinePresenter implements RoutinePresenterInterface,RoutineModel.
     }
 
     @Override
+    public void saveToGallery(List<RoutineModel.DestSpot> destSpotList){
+
+    }
+
+    @Override
     public void onLoadListSuccess(List<RoutineModel.DestSpot> routineList){
         routineView.showRoutineList(routineList);
     }

@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide;
 import com.example.l.TripFlash.R;
 import com.example.l.TripFlash.network.VolleyCallback;
 import com.example.l.TripFlash.network.VolleyRequest;
+import com.example.l.TripFlash.presenter.RoutinePresenterInterface;
 
 import org.json.JSONObject;
 
@@ -21,7 +22,7 @@ public class RoutineModel implements RoutineAutoPlanUtility.AutoPlanUtilityCallB
     private List<DestSpot> destList;
     private Long[][] distanceList;
     private Context context;
-    //private RoutineAutoPlanUtility getDestinationsDistancesUtility;
+    private RoutinePresenterInterface routinePresenter;
     private int distanceUpdateCounter=0;
 
     public RoutineModel(){
@@ -48,6 +49,7 @@ public class RoutineModel implements RoutineAutoPlanUtility.AutoPlanUtilityCallB
 
 
     public String exportRoute(Context context){
+
         String url=context.getString(R.string.static_map_url) + "key=" + context.getString(R.string.Autonavi_api_key) + "&labels=" + getLocationString() + "&paths=" + getPathString();
         return url;
     }
